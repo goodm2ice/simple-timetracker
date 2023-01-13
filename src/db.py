@@ -38,11 +38,11 @@ class SessionBreak(BaseModel):
 
     class Meta:
         db_table = 'SessionBreaks'
-    
+
     @staticmethod
-    def get_last_not_finished(session_id: int):
+    def get_last_not_finished(session_id) -> SessionBreak | None:
         result = SessionBreak.select().where(
-                SessionBreak.session_id == session_id &
+                (SessionBreak.session_id == session_id) &
                 SessionBreak.end_date.is_null()
             ).order_by(
                 SessionBreak.start_date.asc()
